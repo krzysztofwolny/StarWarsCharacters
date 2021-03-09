@@ -1,0 +1,11 @@
+.mainView {
+    border: 1px solid black;
+    width: 75%;
+
+    &__pagesNav {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+    }
+}

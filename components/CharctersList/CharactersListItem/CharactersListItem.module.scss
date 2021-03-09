@@ -1,0 +1,14 @@
+.charactersListItem {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__species {
+        display: flex;
+    }
+}
