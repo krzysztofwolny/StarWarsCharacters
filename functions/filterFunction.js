@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const paginationFunction = ( inputFromState, 
                                 howManyItemsPerPage,
                                 acctualViewedPage,
@@ -17,4 +19,18 @@ export const paginationFunction = ( inputFromState,
                            
     const toView = inputFromState.splice(start(acctualViewedPage), howManyItemsPerPage);
     return toView;
-}
+};
+
+export const addOrdinalNumber = (inputCharacters) => {
+    let inputCharactersCopy = _.cloneDeep(inputCharacters);
+    if(inputCharacters) {
+        inputCharacters.forEach( (el, idx) => {
+            const newElement = {
+                ...el,
+                on: idx + 1
+            };
+            inputCharactersCopy[idx] = newElement;
+        });
+    }
+    return inputCharactersCopy
+};

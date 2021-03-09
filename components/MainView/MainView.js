@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './MainView.module.scss';
-import { paginationFunction } from '../../functions/filterFunction';
+import { paginationFunction, addOrdinalNumber } from '../../functions/filterFunction';
 import { fetchAditionalData } from '../../store/actions';
- 
+//components imports
 import CharactersList from '../CharctersList/CharactersList';
+import FilterComponent from '../FilterComponent/FilterComponent';
 
 const MainView = () => {
-    const allCharacters = useSelector(state => state.results);
+    const allCharactersRaw = useSelector(state => state.results);
+    //add Ordinar Number to characters
+    const allCharacters = addOrdinalNumber(allCharactersRaw);
     const itemsCount = useSelector(state => state.count)
     const [charactersToDisplay, setCharactersToDisplay] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -23,23 +26,21 @@ const MainView = () => {
                 setCharactersToDisplay(allCharacters);
             }
         }
-    }, [allCharacters]);
+    }, [allCharactersRaw]);
 
     //update characters list
     useEffect(() => {
         if(allCharacters) {
         const copyAllCharacters = [...allCharacters];
-        console.log("długość tabeli characters", allCharacters.length)
         setCharactersToDisplay(paginationFunction(copyAllCharacters, itemsPerPage, currentPage, itemsCount));
         };
         if(allCharacters && allCharacters.length < (itemsPerPage * currentPage)) {
-            console.log("pobieramy dane");
             getNewCharacters(fetchAditionalData(nextPageToDownload));
             setNextPageToDownload(nextPageToDownload + 1);
             const copyAllCharacters = [...allCharacters];
             setCharactersToDisplay(paginationFunction(copyAllCharacters, itemsPerPage, currentPage, itemsCount));
         };
-    }, [allCharacters, currentPage, itemsPerPage]);
+    }, [allCharactersRaw, currentPage, itemsPerPage]);
 
     const changeItemsPerPage = (howMany) => {
         event.preventDefault();
@@ -60,10 +61,13 @@ const MainView = () => {
         }
     };
 
-    console.log("następna strona do pobrania", nextPageToDownload);
+    const filterHandler = (filterParameter1, filterParameter2, filterType) => {
+        console.log('filter parameters are', filterParameter1, filterParameter2);
+    }
 
     return(
         <div className={styles.mainView}>
+            <FilterComponent filterParameters={(data1, data2, type) => filterHandler(data1, data2, type)} />
             <p>Showing {itemsPerPage} items per page</p>
             <button onClick={() => changeItemsPerPage(5)}>5 items per page</button>
             <button onClick={() => changeItemsPerPage(10)}>10 items per page</button>

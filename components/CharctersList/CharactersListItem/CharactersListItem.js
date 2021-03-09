@@ -1,19 +1,19 @@
 import React from 'react';
 import styles from './CharactersListItem.module.scss';
-import ShowSmallList from '../../UIElements/ShowSmallList/ShowSmallList';
+import ShowSpeciesList from './ShowSppeciesList/ShowSpeciesList';
 
 
 const CharactersListItem = ({ itemData }) => {
     
     return(
         <li className={styles.charactersListItem}>
-            <p>LP</p>
+            <p>{itemData.on}</p>
             <p>Name: {itemData.name}</p>
             <p>Heigth: {itemData.height}</p>
             <p>Eye color: {itemData.eye_color}</p>
             <div className={styles.charactersListItem__species}>
                 <p>Species:</p>
-                <ShowSmallList dataList={itemData.species} />
+                <ShowSpeciesList dataList={itemData.species} />
             </div>
         </li>
 
