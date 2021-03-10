@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import styles from './FilterComponent.module.scss';
 
 const FilterComponent = ({ filterParameters }) => {
-    const [onFrom, setOnFrom] = useState(false);
-    const [onTo, setOnTo] = useState(false);
+    const [from, setOnFrom] = useState(false);
+    const [to, setOnTo] = useState(false);
+    const [name, setName] = useState("");
+    const [searchType, setSearchType] = useState("ordinaryNumber");
 
     const onChangeHandler = (event) => {
         const {name, value} = event.currentTarget;
@@ -13,6 +16,15 @@ const FilterComponent = ({ filterParameters }) => {
             case "onTo":
                 setOnTo(value);
                 break
+            case "fromHeight":
+                setOnFrom(value);
+                break
+            case "toHeight":
+                setOnTo(value);
+                break
+            case "name":
+                setName(value);
+                break
             default:
                 return value
         }
@@ -21,26 +33,82 @@ const FilterComponent = ({ filterParameters }) => {
     const sendDataToFilter = (filterType, event) => {
         event.preventDefault();
         if(filterType === 'ordinaryNumber') {
-            filterParameters(onFrom, onTo, filterType);
+            filterParameters(from, to, filterType);
+        } else if (filterType === 'height') {
+            filterParameters(from, to, filterType);
+        } else if (filterType === 'name') {
+            filterParameters(name, null, filterType);
+        }
+    };
+
+    const chooseSearchType = (event) => {
+        event.preventDefault();
+        setSearchType(event.target.value);
+    };
+
+    const showInput = () => {
+        if(searchType === "ordinaryNumber") {
+            return(
+                <React.Fragment>
+                    <label for="ON">from</label>
+                    <input  type="number" 
+                            name="onFrom" 
+                            value={from}
+                            placeholder="number"
+                            onChange={(event) => onChangeHandler(event)}/>
+                    <label  for="ON">To</label>
+                    <input  type="number" 
+                            name="onTo" 
+                            value={to}
+                            placeholder="number"
+                            onChange={(event) => onChangeHandler(event)}/>
+                </React.Fragment>
+            );
+        } else if (searchType === "height") {
+            return(
+                <React.Fragment>
+                    <label for="height">from</label>
+                    <input  type="number" 
+                            name="fromHeight" 
+                            value={from}
+                            placeholder="from height"
+                            onChange={(event) => onChangeHandler(event)}/>
+                    <label  for="ON">To</label>
+                    <input  type="number" 
+                            name="toHeight" 
+                            value={to}
+                            placeholder="to height"
+                            onChange={(event) => onChangeHandler(event)}/>
+                </React.Fragment>
+            );
+        } else if (searchType === "name") {
+            return(
+                <React.Fragment>
+                <label for="name">Name</label>
+                <input  type="text" 
+                        name="name" 
+                        value={name}
+                        placeholder="name"
+                        onChange={(event) => onChangeHandler(event)}/>
+                </React.Fragment>
+            );
         }
     };
 
     return(
-        <form>
-            <label for="ON">from</label>
-            <input  type="number" 
-                    name="onFrom" 
-                    value={onFrom}
-                    placeholder="number"
-                    onChange={(event) => onChangeHandler(event)}/>
-            <label  for="ON">To</label>
-            <input  type="number" 
-                    name="onTo" 
-                    value={onTo}
-                    placeholder="number"
-                    onChange={(event) => onChangeHandler(event)}/>
-            <button onClick={(event) => sendDataToFilter("ordinaryNumber", event)}>Filter</button>
-        </form>
+        <div className={styles.filter}>
+            <form className={styles.filter__form}>
+                {showInput()}
+                <div>
+                    <select onChange={chooseSearchType}>
+                        <option value="ordinayNumber">by ordinary number</option>
+                        <option value="height">by height</option>
+                        <option value="name">by name</option>
+                    </select>
+                </div>
+                <button onClick={(event) => sendDataToFilter(searchType, event)}>Filter</button>
+            </form>
+        </div>
     );
 };
 

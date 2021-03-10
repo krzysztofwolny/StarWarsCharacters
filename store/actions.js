@@ -16,7 +16,7 @@ export const fetchCharacters = () => {
             //copy imported data to further modifiction
             let charctersDataCopy = _.cloneDeep(characters.data);
             //swap array of urls to array of fetched names and insert them in data prepared to saving
-            const updateIncomingData = characters.data.results.forEach( (el, idx) => {
+            characters.data.results.forEach( (el, idx) => {
                 const newSpeciesArray = insertSpeciesNames(el.species);
                 charctersDataCopy.results[idx].species = newSpeciesArray;
             });
@@ -41,7 +41,7 @@ export const fetchAditionalData = (pageNumber) => {
         try {
             const newCharacters = await axios.get(`http://swapi.dev/api/people/?page=${pageNumber}`);
             let newCharactersDataCopy = _.cloneDeep(newCharacters.data.results);
-            const updateIncomingData = newCharacters.data.results.forEach( (el, idx) => {
+            newCharacters.data.results.forEach( (el, idx) => {
                 const newSpeciesArray = insertSpeciesNames(el.species);
                 newCharactersDataCopy[idx].species = newSpeciesArray;
             });
@@ -65,12 +65,34 @@ const fetchAllCharactersSuccess = (allCharacters) => {
 export const fetchAllCharacters = (numberOfAllRecords) => {
     return async dispatch => {
         try {
+            //reset data to firs fetch
+            const characters = await axios.get('https://swapi.dev/api/people/');
+            //copy imported data to further modifiction
+            let charctersDataCopy = _.cloneDeep(characters.data);
+            //swap array of urls to array of fetched names and insert them in data prepared to saving
+            characters.data.results.forEach( (el, idx) => {
+                const newSpeciesArray = insertSpeciesNames(el.species);
+                charctersDataCopy.results[idx].species = newSpeciesArray;
+            });
+
             //pages in API are divided by 10 items. For loop will fetch all pges.
             const numberOfPages = Math.ceil(numberOfAllRecords / 10);
-            for(let i = 1; i <= numberOfPages; i++) {
-                //tutaj pobieramy wszystko po kolei.
-                //pamiętaj, że za każdym razem trzeba obrobić species
+            let pageNumber = 2;
+            //iterate over all api pages and fetch data
+            for(let i = 2; i <= numberOfPages; i++) {
+                const newCharacters = await axios.get(`http://swapi.dev/api/people/?page=${pageNumber}`);
+                let newCharactersDataCopy = _.cloneDeep(newCharacters.data.results);
+                newCharacters.data.results.forEach( (el, idx) => {
+                    const newSpeciesArray = insertSpeciesNames(el.species);
+                    newCharactersDataCopy[idx].species = newSpeciesArray;
+                });
+                //insert new data to characters results
+                newCharactersDataCopy.forEach( (el) => {
+                    charctersDataCopy.results.push(el);
+                });
+                pageNumber = pageNumber + 1
             }
+            dispatch(fetchAllCharactersSuccess(charctersDataCopy));
         }
         catch(error) {
             console.log(error)

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Router from 'next/router';
 import styles from './MainView.module.scss';
 import { paginationFunction, addOrdinalNumber } from '../../functions/filterFunction';
-import { fetchAditionalData } from '../../store/actions';
+import { fetchAditionalData, fetchAllCharacters } from '../../store/actions';
 //components imports
 import CharactersList from '../CharctersList/CharactersList';
 import FilterComponent from '../FilterComponent/FilterComponent';
@@ -11,7 +12,7 @@ const MainView = () => {
     const allCharactersRaw = useSelector(state => state.results);
     //add Ordinar Number to characters
     const allCharacters = addOrdinalNumber(allCharactersRaw);
-    const itemsCount = useSelector(state => state.count)
+    const itemsCount = useSelector(state => state.count);
     const [charactersToDisplay, setCharactersToDisplay] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -63,6 +64,16 @@ const MainView = () => {
 
     const filterHandler = (filterParameter1, filterParameter2, filterType) => {
         console.log('filter parameters are', filterParameter1, filterParameter2);
+        //fetch all characters for searching purposes
+        getNewCharacters(fetchAllCharacters(itemsCount));
+        Router.push({
+            pathname: '/search_result',
+            query: { 
+                param1: filterParameter1,
+                param2: filterParameter2,
+                filterType: filterType
+            }
+        })
     }
 
     return(

@@ -24,6 +24,8 @@ const characters = (state = initialState , action) => {
             return action.payload.characters
         case 'FETCH_ADDITIONAL_DATA':
             return addNewCharactersToState(state, action.payload.newCharacters)
+        case 'FETCH_ALL_DATA':
+            return action.payload.allCharacters
         default:
             return state
     }
