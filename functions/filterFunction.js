@@ -46,21 +46,44 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
         });
         console.log(filteredData)
         return filteredData
+    //search between given hight range
     } else if (searchType === 'height') {
         let filteredData = [];
         charactersInput.forEach( el => {
-            if(el.height >= onParam1 && el.height <= onParam2 ) {
+            if(parseInt(el.height) >= onParam1 && parseInt(el.height) <= onParam2 ) {
                 filteredData.push(el);
             }
         });
         return filteredData
+    //search by name - fultext search
     } else if (searchType === 'name') {
+        //prepare array from name and given search strings
         let filteredData = [];
         charactersInput.forEach( el => {
-            if(el.name === onParam1 ) {
+            //check if the given search hits directly
+            if(el.name.toLowerCase() === onParam1.toLowerCase()) {
+                filteredData.push(el)
+            }
+        });
+        //if given search have not be found as full string, try to find less acurate match
+        if(filteredData.length === 0) {
+            charactersInput.forEach( el => {
+                const splitInput = el.name.toLowerCase().split(' ');
+                const splitParam = onParam1.toLowerCase().split(' ');
+                if(splitInput.some(r=> splitParam.indexOf(r) >= 0)) {
+                    filteredData.push(el);
+                }
+            });
+        }
+        return filteredData
+    //search by the eye color
+    } else if (searchType === 'eyecolor') {
+        let filteredData = [];
+        charactersInput.forEach( el => {
+            if(el.eye_color.toLowerCase() === onParam1.toLowerCase()) {
                 filteredData.push(el);
             }
         });
-        return filteredData
+        return filteredData 
     }
 };

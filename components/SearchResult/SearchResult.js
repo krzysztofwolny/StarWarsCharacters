@@ -13,13 +13,15 @@ const SearchResultPage = ({ dataSearch }) => {
     const [charactersToDisplay, setCharactersToDisplay] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsCount = filterFunction(allCharacters, dataSearch.param1, dataSearch.param2, dataSearch.filterType).length;
+    const [itemsCount, setItemsCount] = useState(filterFunction(allCharacters, dataSearch.param1, dataSearch.param2, dataSearch.filterType).length);
     const pagesCount = Math.ceil(itemsCount / itemsPerPage);
+    const [filterparam1, setFilterParam1] = useState(false);
+    const [filterparam2, setFilterParam2] = useState(false);
+    const [searchType, setSearchType] = useState(false);
 
     //display data on first render of search result view
     useEffect(() => {
-        if(allCharactersRaw)
-        console.log(itemsCount)
+        if(allCharactersRaw && !filterparam1)
         setCharactersToDisplay(paginationFunction(
                                                 filterFunction(
                                                             allCharacters, 
@@ -27,14 +29,28 @@ const SearchResultPage = ({ dataSearch }) => {
                                                             dataSearch.param2, 
                                                             dataSearch.filterType),
                                                 itemsPerPage, currentPage, itemsCount));
-    }, [allCharactersRaw]);
+    }, [allCharactersRaw, currentPage]);
+
+    //make new search
+    useEffect(() => {
+        if(allCharactersRaw && filterparam1) {
+            setItemsCount(filterFunction(allCharacters, filterparam1, filterparam2, searchType).length);
+            setCharactersToDisplay(paginationFunction(
+                filterFunction(
+                            allCharacters, 
+                            filterparam1, 
+                            filterparam2, 
+                            searchType),
+                itemsPerPage, currentPage, itemsCount));
+        }
+    }, [filterparam1, currentPage, itemsPerPage]);
 
     const changeItemsPerPage = (howMany) => {
         setItemsPerPage(howMany);
     };
 
     const nextPage = () => {
-        if(currentPage === itemsCount) {
+        if(currentPage === pagesCount) {
             console.log(itemsCount, pagesCount)
             setCurrentPage(1);
         } else {
@@ -48,13 +64,17 @@ const SearchResultPage = ({ dataSearch }) => {
         }
     };
 
+    //set parameters to new search, then useEffect will trigger pagination function
+    const filterHandler = (filterParameter1, filterParameter2, filterType) => {
+        setFilterParam1(filterParameter1);
+        setFilterParam2(filterParameter2);
+        setSearchType(filterType);
+    };
+
     return(
         <div className={styles.mainView}>
             SearchResult:
-            <p>{dataSearch.param1}</p>
-            <p>{dataSearch.param2}</p>
-            <p>{dataSearch.filterType}</p>
-            <FilterComponent filterParameters="smt" />
+            <FilterComponent filterParameters={(data1, data2, type) => filterHandler(data1, data2, type)} />
             <p>Showing {itemsPerPage} items per page</p>
             <button onClick={() => changeItemsPerPage(5)}>5 items per page</button>
             <button onClick={() => changeItemsPerPage(10)}>10 items per page</button>

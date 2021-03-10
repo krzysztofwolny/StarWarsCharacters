@@ -6,6 +6,7 @@ const FilterComponent = ({ filterParameters }) => {
     const [to, setOnTo] = useState(false);
     const [name, setName] = useState("");
     const [searchType, setSearchType] = useState("ordinaryNumber");
+    const [eyeColor, setEyeColor] = useState('');
 
     const onChangeHandler = (event) => {
         const {name, value} = event.currentTarget;
@@ -25,6 +26,9 @@ const FilterComponent = ({ filterParameters }) => {
             case "name":
                 setName(value);
                 break
+            case "eyecolor":
+                setEyeColor(value);
+                break
             default:
                 return value
         }
@@ -38,6 +42,8 @@ const FilterComponent = ({ filterParameters }) => {
             filterParameters(from, to, filterType);
         } else if (filterType === 'name') {
             filterParameters(name, null, filterType);
+        } else if (filterType === 'eyecolor') {
+            filterParameters(eyeColor, null, filterType);
         }
     };
 
@@ -92,6 +98,17 @@ const FilterComponent = ({ filterParameters }) => {
                         onChange={(event) => onChangeHandler(event)}/>
                 </React.Fragment>
             );
+        } else if (searchType === "eyecolor") {
+            return(
+                <React.Fragment>
+                <label for="name">Eye color</label>
+                <input  type="text" 
+                        name="eyecolor" 
+                        value={eyeColor}
+                        placeholder="eye color"
+                        onChange={(event) => onChangeHandler(event)}/>
+                </React.Fragment>
+            );
         }
     };
 
@@ -104,6 +121,7 @@ const FilterComponent = ({ filterParameters }) => {
                         <option value="ordinayNumber">by ordinary number</option>
                         <option value="height">by height</option>
                         <option value="name">by name</option>
+                        <option value="eyecolor">by eye color</option>
                     </select>
                 </div>
                 <button onClick={(event) => sendDataToFilter(searchType, event)}>Filter</button>
