@@ -61,7 +61,7 @@ const MainView = () => {
             setCurrentPage(currentPage - 1);
         }
     };
-
+    //execute search from FilterComponent
     const filterHandler = (filterParameter1, filterParameter2, filterType) => {
         console.log('filter parameters are', filterParameter1, filterParameter2);
         //fetch all characters for searching purposes
@@ -73,7 +73,8 @@ const MainView = () => {
                 param2: filterParameter2,
                 filterType: filterType
             }
-        })
+        });
+        setCurrentPage(1);
     }
 
     return(
@@ -82,7 +83,7 @@ const MainView = () => {
             <p>Showing {itemsPerPage} items per page</p>
             <button onClick={() => changeItemsPerPage(5)}>5 items per page</button>
             <button onClick={() => changeItemsPerPage(10)}>10 items per page</button>
-            <CharactersList characters={charactersToDisplay}/>
+            <CharactersList characters={charactersToDisplay} currentPage={currentPage} />
             <div className={styles.mainView__pagesNav}>
                 <button onClick={() => previousPage()}>Previous Page</button>
                 <p>{currentPage} / {Math.ceil(itemsCount / itemsPerPage)}</p>

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { checkFavourites } from './storeFunctions';
 
 export const paginationFunction = ( inputFromState, 
                                 howManyItemsPerPage,
@@ -37,8 +38,8 @@ export const addOrdinalNumber = (inputCharacters) => {
 //takes all characters and returns characters array according to given search parameters
 export const filterFunction = (charactersInput, onParam1, onParam2, searchType) => {
     //this part hapens when the search type is for ordinary numbers
+    let filteredData = [];
     if(searchType === "ordinaryNumber") {
-        let filteredData = [];
         charactersInput.forEach( el => {
             if(el.on >= onParam1 && el.on <= onParam2 ) {
                 filteredData.push(el);
@@ -48,7 +49,6 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
         return filteredData
     //search between given hight range
     } else if (searchType === 'height') {
-        let filteredData = [];
         charactersInput.forEach( el => {
             if(parseInt(el.height) >= onParam1 && parseInt(el.height) <= onParam2 ) {
                 filteredData.push(el);
@@ -58,7 +58,6 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
     //search by name - fultext search
     } else if (searchType === 'name') {
         //prepare array from name and given search strings
-        let filteredData = [];
         charactersInput.forEach( el => {
             //check if the given search hits directly
             if(el.name.toLowerCase() === onParam1.toLowerCase()) {
@@ -78,12 +77,23 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
         return filteredData
     //search by the eye color
     } else if (searchType === 'eyecolor') {
-        let filteredData = [];
         charactersInput.forEach( el => {
             if(el.eye_color.toLowerCase() === onParam1.toLowerCase()) {
                 filteredData.push(el);
             }
         });
         return filteredData 
+        //show favourites
+    } else if (searchType === 'favourites') {
+        console.log("search for favourites")
+        charactersInput.forEach( el => {
+            if(checkFavourites(el.name, el.height, el.eye_color)) {
+                filteredData.push(el);
+            }
+        });
+        return filteredData
+    } else {
+        return charactersInput
     }
+    
 };

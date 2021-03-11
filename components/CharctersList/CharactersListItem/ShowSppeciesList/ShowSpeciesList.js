@@ -8,7 +8,7 @@ const ShowSpeciesList = ({dataList}) => {
     useEffect(() => {
         setTimeout(() => {
             setIsFetched(true)
-        }, 1000);
+        }, 500);
     }, []);
 
     const printSpeciesList = () => {

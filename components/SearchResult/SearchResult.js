@@ -7,13 +7,13 @@ import { addOrdinalNumber, filterFunction, paginationFunction } from '../../func
 import CharactersList from '../CharctersList/CharactersList';
 import FilterComponent from '../FilterComponent/FilterComponent';
 
-const SearchResultPage = ({ dataSearch }) => {
+const SearchResult = ({ dataSearch }) => {
     const allCharactersRaw = useSelector(state => state.results);
     const allCharacters = addOrdinalNumber(allCharactersRaw);
     const [charactersToDisplay, setCharactersToDisplay] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsCount, setItemsCount] = useState(filterFunction(allCharacters, dataSearch.param1, dataSearch.param2, dataSearch.filterType).length);
+    const [itemsCount, setItemsCount] = useState(allCharacters ? filterFunction(allCharacters, dataSearch.param1, dataSearch.param2, dataSearch.filterType).length : 0);
     const pagesCount = Math.ceil(itemsCount / itemsPerPage);
     const [filterparam1, setFilterParam1] = useState(false);
     const [filterparam2, setFilterParam2] = useState(false);
@@ -22,6 +22,7 @@ const SearchResultPage = ({ dataSearch }) => {
     //display data on first render of search result view
     useEffect(() => {
         if(allCharactersRaw && !filterparam1)
+        setItemsCount(filterFunction(allCharacters, dataSearch.param1, dataSearch.param2, dataSearch.filterType).length);
         setCharactersToDisplay(paginationFunction(
                                                 filterFunction(
                                                             allCharacters, 
@@ -29,11 +30,12 @@ const SearchResultPage = ({ dataSearch }) => {
                                                             dataSearch.param2, 
                                                             dataSearch.filterType),
                                                 itemsPerPage, currentPage, itemsCount));
-    }, [allCharactersRaw, currentPage]);
+    }, [allCharactersRaw, currentPage, itemsPerPage]);
 
     //make new search
     useEffect(() => {
         if(allCharactersRaw && filterparam1) {
+            console.log('search!')
             setItemsCount(filterFunction(allCharacters, filterparam1, filterparam2, searchType).length);
             setCharactersToDisplay(paginationFunction(
                 filterFunction(
@@ -69,6 +71,7 @@ const SearchResultPage = ({ dataSearch }) => {
         setFilterParam1(filterParameter1);
         setFilterParam2(filterParameter2);
         setSearchType(filterType);
+        setCurrentPage(1);
     };
 
     return(
@@ -78,7 +81,7 @@ const SearchResultPage = ({ dataSearch }) => {
             <p>Showing {itemsPerPage} items per page</p>
             <button onClick={() => changeItemsPerPage(5)}>5 items per page</button>
             <button onClick={() => changeItemsPerPage(10)}>10 items per page</button>
-            <CharactersList characters={charactersToDisplay}/>
+            <CharactersList characters={charactersToDisplay} currentPage={currentPage} />
             <div className={styles.mainView__pagesNav}>
                 <button onClick={() => previousPage()}>Previous Page</button>
                 <p>{currentPage} / {pagesCount}</p>
@@ -88,4 +91,4 @@ const SearchResultPage = ({ dataSearch }) => {
     );
 };
 
-export default SearchResultPage;
+export default SearchResult;

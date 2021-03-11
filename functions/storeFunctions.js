@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { get } from 'lodash';
 
 //takes array of urls and returns arry of fetched names
 export const insertSpeciesNames = (arrayWithURLs) => {
@@ -17,24 +18,6 @@ export const insertSpeciesNames = (arrayWithURLs) => {
     return outputArray;
 };
 
-//takes name, height and eye color and store it in to local storage on favourites list
-export const addToFavourites = (name, height, eyeColor) => {
-    //check if the list of favourites in localStorage exist
-    console.log('go!')
-    const localStorageFavourites = localStorage.getItem('favourites');
-    if(!localStorageFavourites) {
-        //if not exist, create new
-        const newFavouritesList = [`${name.replace(/\s/g, '')}${height}${eyeColor}`];
-        localStorage.setItem('favourites', JSON.stringify(newFavouritesList));
-    } else if (localStorageFavourites) {
-        //if exists, take this list and update it with new favourite character
-        let updateFavouritesList = JSON.parse(localStorageFavourites);
-        const newFavouriteItem = `${name.replace(/\s/g, '')}${height}${eyeColor}`;
-        updateFavouritesList.push(newFavouriteItem);
-        localStorage.setItem('favourites', JSON.stringify(updateFavouritesList));
-    }
-};
-
 //check if the character is in favourites
 export const checkFavourites = (name, height, eyeColor) => {
     const localStorageFavourites = localStorage.getItem('favourites');
@@ -47,3 +30,31 @@ export const checkFavourites = (name, height, eyeColor) => {
         return false
     }
 }
+
+//takes name, height and eye color and store it in to local storage on favourites list
+export const addToFavourites = (name, height, eyeColor) => {
+    //check if the list of favourites in localStorage exist
+    const localStorageFavourites = localStorage.getItem('favourites');
+    if(!localStorageFavourites) {
+        //if not exist, create new
+        const newFavouritesList = [`${name.replace(/\s/g, '')}${height}${eyeColor}`];
+        localStorage.setItem('favourites', JSON.stringify(newFavouritesList));
+    } else if (localStorageFavourites) {
+        //if exists, check if character is on a list
+        const isOnList = checkFavourites(name, height, eyeColor);
+        //if exist, remove
+        if(isOnList) {
+            let updateFavouritesList = JSON.parse(localStorageFavourites);
+            const newFavouriteItem = `${name.replace(/\s/g, '')}${height}${eyeColor}`;
+            updateFavouritesList = updateFavouritesList.filter(item => item !== newFavouriteItem)
+            localStorage.setItem('favourites', JSON.stringify(updateFavouritesList));
+        } else if (!isOnList) {
+            //if not exists, ad
+            let updateFavouritesList = JSON.parse(localStorageFavourites);
+            const newFavouriteItem = `${name.replace(/\s/g, '')}${height}${eyeColor}`;
+            updateFavouritesList.push(newFavouriteItem);
+            localStorage.setItem('favourites', JSON.stringify(updateFavouritesList));
+        }
+        
+    }
+};

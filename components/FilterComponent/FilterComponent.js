@@ -112,19 +112,26 @@ const FilterComponent = ({ filterParameters }) => {
         }
     };
 
+    //special search for favourites
+    const showAllFavourites = (event) => {
+        event.preventDefault();
+        filterParameters(1, 1, 'favourites');
+    }
+
     return(
         <div className={styles.filter}>
             <form className={styles.filter__form}>
                 {showInput()}
                 <div>
                     <select onChange={chooseSearchType}>
-                        <option value="ordinayNumber">by ordinary number</option>
+                        <option value="ordinaryNumber">by ordinary number</option>
                         <option value="height">by height</option>
                         <option value="name">by name</option>
                         <option value="eyecolor">by eye color</option>
                     </select>
                 </div>
                 <button onClick={(event) => sendDataToFilter(searchType, event)}>Filter</button>
+                <button onClick={(event) => showAllFavourites(event)}>Favourites</button>
             </form>
         </div>
     );
