@@ -1,0 +1,15 @@
+@import '../../styles/variables.scss';
+
+.pagesNav {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__numbers {
+        margin: 1.5rem;
+        color: $color-primary;
+        font-size: 2rem;
+    }
+}

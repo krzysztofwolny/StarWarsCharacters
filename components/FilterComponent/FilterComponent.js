@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './FilterComponent.module.scss';
+import Button from '../UIElements/Button/Button';
 
 const FilterComponent = ({ filterParameters }) => {
     const [from, setOnFrom] = useState(false);
@@ -56,31 +57,31 @@ const FilterComponent = ({ filterParameters }) => {
         if(searchType === "ordinaryNumber") {
             return(
                 <React.Fragment>
-                    <label for="ON">from</label>
-                    <input  type="number" 
+                    <label className={styles.filter__form_label} for="ON">from</label>
+                    <input className={styles.filter__form_input} type="number" 
                             name="onFrom" 
                             value={from}
-                            placeholder="number"
+                            placeholder="from number"
                             onChange={(event) => onChangeHandler(event)}/>
-                    <label  for="ON">To</label>
-                    <input  type="number" 
+                    <label className={styles.filter__form_label} for="ON">To</label>
+                    <input className={styles.filter__form_input} type="number" 
                             name="onTo" 
                             value={to}
-                            placeholder="number"
+                            placeholder="to number"
                             onChange={(event) => onChangeHandler(event)}/>
                 </React.Fragment>
             );
         } else if (searchType === "height") {
             return(
                 <React.Fragment>
-                    <label for="height">from</label>
-                    <input  type="number" 
+                    <label className={styles.filter__form_label} for="height">from</label>
+                    <input className={styles.filter__form_input} type="number" 
                             name="fromHeight" 
                             value={from}
                             placeholder="from height"
                             onChange={(event) => onChangeHandler(event)}/>
-                    <label  for="ON">To</label>
-                    <input  type="number" 
+                    <label className={styles.filter__form_label}  for="ON">To</label>
+                    <input className={styles.filter__form_input} type="number" 
                             name="toHeight" 
                             value={to}
                             placeholder="to height"
@@ -90,22 +91,22 @@ const FilterComponent = ({ filterParameters }) => {
         } else if (searchType === "name") {
             return(
                 <React.Fragment>
-                <label for="name">Name</label>
-                <input  type="text" 
+                <label className={styles.filter__form_label} for="name">Name</label>
+                <input className={styles.filter__form_input} type="text" 
                         name="name" 
                         value={name}
-                        placeholder="name"
+                        placeholder="enter name"
                         onChange={(event) => onChangeHandler(event)}/>
                 </React.Fragment>
             );
         } else if (searchType === "eyecolor") {
             return(
                 <React.Fragment>
-                <label for="name">Eye color</label>
-                <input  type="text" 
+                <label className={styles.filter__form_label} for="name">Eye color</label>
+                <input className={styles.filter__form_input} type="text" 
                         name="eyecolor" 
                         value={eyeColor}
-                        placeholder="eye color"
+                        placeholder="enter eye color"
                         onChange={(event) => onChangeHandler(event)}/>
                 </React.Fragment>
             );
@@ -121,17 +122,19 @@ const FilterComponent = ({ filterParameters }) => {
     return(
         <div className={styles.filter}>
             <form className={styles.filter__form}>
-                {showInput()}
-                <div>
-                    <select onChange={chooseSearchType}>
+                <div className={styles.filter__partials}>
+                    {showInput()}
+                    <select className={styles.filter__form_select} onChange={chooseSearchType}>
                         <option value="ordinaryNumber">by ordinary number</option>
                         <option value="height">by height</option>
                         <option value="name">by name</option>
                         <option value="eyecolor">by eye color</option>
                     </select>
                 </div>
-                <button onClick={(event) => sendDataToFilter(searchType, event)}>Filter</button>
-                <button onClick={(event) => showAllFavourites(event)}>Favourites</button>
+                <div className={styles.filter__partials}>
+                    <Button clickAction={(event) => sendDataToFilter(searchType, event)}>Filter</Button>
+                    <Button clickAction={(event) => showAllFavourites(event)}>Favourites</Button>
+                </div>
             </form>
         </div>
     );

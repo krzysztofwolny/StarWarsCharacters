@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.itemsPerPage {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &__label {
+        font-weight: 200;
+        color: $color-primary;
+    }
+}

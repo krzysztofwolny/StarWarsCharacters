@@ -7,6 +7,9 @@ import { fetchAditionalData, fetchAllCharacters } from '../../store/actions';
 //components imports
 import CharactersList from '../CharctersList/CharactersList';
 import FilterComponent from '../FilterComponent/FilterComponent';
+import Header from '../Header/Header';
+import ItemsPerPage from '../ItemsPerPage/ItemsPerPage';
+import PagesNavigation from '../pagesNavigation/pagesNavigation';
 
 const MainView = () => {
     const allCharactersRaw = useSelector(state => state.results);
@@ -79,16 +82,14 @@ const MainView = () => {
 
     return(
         <div className={styles.mainView}>
+            <Header />
             <FilterComponent filterParameters={(data1, data2, type) => filterHandler(data1, data2, type)} />
-            <p>Showing {itemsPerPage} items per page</p>
-            <button onClick={() => changeItemsPerPage(5)}>5 items per page</button>
-            <button onClick={() => changeItemsPerPage(10)}>10 items per page</button>
+            <ItemsPerPage itemsPerPage={itemsPerPage} changeItemsPerPage={(howMany) => changeItemsPerPage(howMany)}/>
             <CharactersList characters={charactersToDisplay} currentPage={currentPage} />
-            <div className={styles.mainView__pagesNav}>
-                <button onClick={() => previousPage()}>Previous Page</button>
-                <p>{currentPage} / {Math.ceil(itemsCount / itemsPerPage)}</p>
-                <button onClick={() => nextPage()}>Next Page</button>
-            </div>
+            <PagesNavigation currentPage={currentPage} 
+                             pagesCount={Math.ceil(itemsCount / itemsPerPage)}
+                             previousPage={() => previousPage()}
+                             nextPage={() => nextPage()} />
         </div>
     );
 };

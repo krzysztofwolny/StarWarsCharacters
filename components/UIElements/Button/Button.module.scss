@@ -1,0 +1,29 @@
+@import '../../../styles/variables.scss';
+
+.button {
+    width: 14rem;
+    height: 3rem;
+    margin: .5rem;
+    font-size: 1.5rem;
+    color: $color-primary;
+    background-color: $color-white-glass;
+    border-radius: 1rem;
+    border: 2px solid $color-primary;
+    transition: all .2s;
+
+    &:hover {
+        color: white;
+        background-color: $color-primary;
+    }
+
+    &:active {
+        transform: translateY(2px) scale(.98);
+        box-shadow: 1px 1px 15px 2px $color-primary-hover;
+    }
+
+    &:visited,
+    &:focus {
+        outline: none;
+        border: none;
+    }
+}

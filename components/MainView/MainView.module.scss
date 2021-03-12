@@ -1,11 +1,15 @@
+@import '../../styles/variables.scss';
+
 .mainView {
-    border: 1px solid black;
-    width: 75%;
+    background-color: $color-white-glass;
+    margin-top: 3rem;
+    padding: 2rem;
+    width: 85%;
 
     &__pagesNav {
         width: 100%;
 
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
     }
 }

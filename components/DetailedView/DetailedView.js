@@ -3,6 +3,8 @@ import styles from './DetailedView.module.scss';
 import { checkFavourites, addToFavourites } from '../../functions/storeFunctions';
 import axios from 'axios';
 
+import Header from '../Header/Header';
+
 const DetailedView = ({ itemData }) => {
     const [isFavourite, setIsFavourite] = useState(checkFavourites(itemData.name, itemData.height, itemData.eye_color));
     const [films, setFilms] = useState([]);
@@ -70,6 +72,7 @@ const DetailedView = ({ itemData }) => {
 
     return(
         <div>
+            <Header />
             {isFavourite ? 'is one of the Favourites!' : 'not favourite'}
             <button onClick={() => addThisCharacterToFavourites()}>add to favourites</button>
             <p>{itemData.name}</p>
