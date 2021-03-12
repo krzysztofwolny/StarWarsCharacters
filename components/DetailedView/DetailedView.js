@@ -118,7 +118,9 @@ const DetailedView = ({ itemData }) => {
                     {displayDataFromArray(films)}
                 </ul>
                 </div>
-                <Button clickAction={() => Router.push('/')}>Homepage</Button> 
+                <div className={styles.detailedView__homepageButton}>
+                    <Button clickAction={() => Router.push('/')}>Homepage</Button>
+                </div> 
             </div>
         </div>
     );

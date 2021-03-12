@@ -39,6 +39,7 @@ const fetchAdditionalDataSuccess = (newCharacters) => {
 export const fetchAditionalData = (pageNumber) => {
     return async dispatch => {
         try {
+            // fetch next page of characters and insert species names, then save in redux store
             const newCharacters = await axios.get(`http://swapi.dev/api/people/?page=${pageNumber}`);
             let newCharactersDataCopy = _.cloneDeep(newCharacters.data.results);
             newCharacters.data.results.forEach( (el, idx) => {

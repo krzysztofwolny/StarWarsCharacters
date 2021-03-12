@@ -27,6 +27,15 @@
         justify-content: center;
         align-items: center;
 
+        @media only screen and (min-width: $bp-desktop) {
+
+            display: grid;
+            grid-template-columns: repeat(3, 33%);
+            grid-template-rows: repeat(5, 20%);
+            grid-gap: 1rem;
+            
+        }
+
         &_item {
             border: 1px solid $color-primary;
             margin: 1rem;
@@ -72,5 +81,11 @@
 
     &__fetched {
         color: black;
+    }
+
+    &__homepageButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
