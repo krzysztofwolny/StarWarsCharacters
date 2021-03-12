@@ -5,7 +5,6 @@ const initialState = [];
 //update state with new characters. lodash cloneDeep function is used to copy the state
 const addNewCharactersToState = (state, action) => {
     const copyState = _.cloneDeep(state);
-    console.log("coppyState", copyState)
     let oldCharacters = copyState.results;
     action.forEach( el => {
             oldCharacters.push(el);

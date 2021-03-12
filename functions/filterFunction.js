@@ -45,7 +45,6 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
                 filteredData.push(el);
             }
         });
-        console.log(filteredData)
         return filteredData
     //search between given hight range
     } else if (searchType === 'height') {
@@ -85,7 +84,6 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
         return filteredData 
         //show favourites
     } else if (searchType === 'favourites') {
-        console.log("search for favourites")
         charactersInput.forEach( el => {
             if(checkFavourites(el.name, el.height, el.eye_color)) {
                 filteredData.push(el);

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { wrapper } from '../store/store';
 import { fetchCharacters } from '../store/actions';
 
@@ -7,10 +7,7 @@ import MainView from '../components/MainView/MainView';
 
 
 const HomePage = () => {
-  const storestore = useSelector(store => store);
   const dispatchAction = useDispatch();
-
-  console.log('store', storestore)
 
   //fetch first data portion and save it in Redux state on homepage component render at client side
   useEffect(() => {

@@ -38,7 +38,6 @@ const SearchResult = ({ dataSearch }) => {
     //make new search
     useEffect(() => {
         if(allCharactersRaw && filterparam1) {
-            console.log('search!')
             setItemsCount(filterFunction(allCharacters, filterparam1, filterparam2, searchType).length);
             setCharactersToDisplay(paginationFunction(
                 filterFunction(
@@ -56,7 +55,6 @@ const SearchResult = ({ dataSearch }) => {
 
     const nextPage = () => {
         if(currentPage === pagesCount) {
-            console.log(itemsCount, pagesCount)
             setCurrentPage(1);
         } else {
             setCurrentPage(currentPage + 1);

@@ -32,6 +32,7 @@ const MainView = () => {
         }
     }, [allCharactersRaw]);
 
+
     //update characters list
     useEffect(() => {
         if(allCharacters) {
@@ -66,7 +67,6 @@ const MainView = () => {
     };
     //execute search from FilterComponent
     const filterHandler = (filterParameter1, filterParameter2, filterType) => {
-        console.log('filter parameters are', filterParameter1, filterParameter2);
         //fetch all characters for searching purposes
         getNewCharacters(fetchAllCharacters(itemsCount));
         Router.push({
