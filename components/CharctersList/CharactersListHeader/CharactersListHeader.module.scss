@@ -1,0 +1,18 @@
+@import '../CharactersListItem/CharactersListItem.module.scss';
+@import '../../../styles/variables.scss';
+
+.charHeader {
+    color: $color-white-glass;
+    background-color: $color-grey;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 0;
+
+    @media only screen and (min-width: $bp-very-small) {
+        font-size: 1.1rem;
+    }
+
+    @media only screen and (min-width: $bp-small) {
+        font-size: 1.5rem;
+    }
+}

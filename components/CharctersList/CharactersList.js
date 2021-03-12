@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import styles from './CharactersList.module.scss';
 
 import CharactersListItem from './CharactersListItem/CharactersListItem';
+import CharactersListHeader from './CharactersListHeader/CharactersListHeader';
 
 const CharactersList = ({ characters, currentPage }) => {
     const [curPage, setCurPage] = useState(currentPage);
@@ -22,6 +23,7 @@ const CharactersList = ({ characters, currentPage }) => {
 
     return(
         <ul className={styles.charactersList}>
+            <CharactersListHeader />
             {printContent()}
         </ul>
     );

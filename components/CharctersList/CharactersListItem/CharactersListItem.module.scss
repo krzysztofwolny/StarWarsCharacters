@@ -1,14 +1,48 @@
+@import '../../../styles/variables.scss';
+
 .charactersListItem {
     width: 100%;
+    padding: 1.5rem;
 
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(6, 16.66%);
+    grid-template-rows: 100%;
 
-    &:not(:last-child) {
-        margin-bottom: 2rem;
+    &__cells {
+        width: 100%;
+        background-color: transparent;
+        transition: all .2s;
+        color: $color-primary;
+        text-align: center;
+
+        @media only screen and (min-width: $bp-very-small) {
+            font-size: 1.1rem;
+        }
+
+        @media only screen and (min-width: $bp-small) {
+            font-size: 1.3rem;
+        }
+
+        &:hover {
+            background-color: $color-light-grey;
+        }
     }
 
-    &__species {
+    &__cel {
         display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .5rem;
+        
+    }
+
+    &__fav {
+        width: 2rem;
+        height: 2rem;
+        transition: all .2s;
+
+        &:hover {
+            fill: $color-primary;
+        }
     }
 }

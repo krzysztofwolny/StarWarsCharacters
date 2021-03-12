@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import Router from 'next/router';
 import styles from './DetailedView.module.scss';
 import { checkFavourites, addToFavourites } from '../../functions/storeFunctions';
 import axios from 'axios';
+import starempty from '../../assets/svg/star-empty.svg';
+import starfull from '../../assets/svg/star-full.svg';
 
 import Header from '../Header/Header';
+import Button from '../UIElements/Button/Button';
 
 const DetailedView = ({ itemData }) => {
     const [isFavourite, setIsFavourite] = useState(checkFavourites(itemData.name, itemData.height, itemData.eye_color));
@@ -48,6 +52,7 @@ const DetailedView = ({ itemData }) => {
         return output
     }
 
+    //fetch films and homeworld name
     useEffect(() => {
         setFilms(fetchItemsFromArray(itemData.films));
         setHomeworld(fetchHomeworld(itemData.homeworld))
@@ -60,35 +65,61 @@ const DetailedView = ({ itemData }) => {
         }, 500);
     }, []);
 
-    console.log('state', films)
-
-    const displayFilms = (input) => {
+    const displayDataFromArray = (input) => {
         return input.map( el => {
-            return <li>{el}</li>
+            return <li className={styles.detailedView__data_list}>{el}</li>
         });
     };
-    //change styles after fetcheds
+    //change styles after fetched
     const fetchedStyles = isFetched ? `${styles.detailedView__films} ${styles.detailedView__fetched}` : styles.detailedView__films;
+    const ifIsFavourite = isFavourite ? starfull : starempty;
 
     return(
-        <div>
+        <div className={styles.mainView}>
             <Header />
-            {isFavourite ? 'is one of the Favourites!' : 'not favourite'}
-            <button onClick={() => addThisCharacterToFavourites()}>add to favourites</button>
-            <p>{itemData.name}</p>
-            <p>{itemData.birth_year}</p>
-            <p>{itemData.eye_color}</p>
-            <p>{itemData.gender}</p>
-            <p>{itemData.hair_color}</p>
-            <p>{itemData.height}</p>
-            <p>{itemData.mass}</p>
-            <p>{itemData.skin_color}</p>
-            <p>{itemData.species}</p>
-            <p className={fetchedStyles}>{displayFilms(homeworld)}</p>
-            <p>Films</p>
-            <ul className={fetchedStyles}>
-                {displayFilms(films)}
-            </ul>
+            <div className={styles.detailedView__favouriteSection}>
+                {isFavourite ? 'is one of the Favourites! Click on star to toggle.' : 'Not favourite. Click on star to toggle'}
+                <img src={ifIsFavourite} alt='favourite star logo' className={styles.detailedView__fav} onClick={() => addThisCharacterToFavourites()} />
+            </div>
+            <div className={styles.detailedView__data}>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Name: </p>
+                    <p>{itemData.name}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Birth date: </p> 
+                    <p>{itemData.birth_year}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Eye color: </p>
+                    <p>{itemData.eye_color}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Gender: </p>
+                    <p>{itemData.gender}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Hair color: </p>
+                    <p>{itemData.hair_color}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Height: </p>
+                    <p>{itemData.height}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Mass: </p>
+                    <p>{itemData.mass}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Skin color: </p>
+                    <p>{itemData.skin_color}</p></div>
+                <div className={styles.detailedView__data_item}>
+                    <p className={styles.detailedView__data_label}>Species: </p>
+                    <p>{itemData.species}</p></div>
+                <div className={fetchedStyles}>
+                    <p className={styles.detailedView__data_label}>Homeworld: </p> 
+                    <p className={styles.detailedView__data_list}>{displayDataFromArray(homeworld)}</p></div>
+                <div className={fetchedStyles}>
+                    <p className={styles.detailedView__data_label}>Films:</p>
+                <ul>
+                    {displayDataFromArray(films)}
+                </ul>
+                </div>
+                <Button clickAction={() => Router.push('/')}>Homepage</Button> 
+            </div>
         </div>
     );
 };

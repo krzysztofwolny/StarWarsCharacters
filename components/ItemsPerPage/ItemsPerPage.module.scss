@@ -1,12 +1,27 @@
 @import '../../styles/variables.scss';
 
 .itemsPerPage {
+    padding: .8rem;
+
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    border-bottom: 1px solid $color-primary;
 
     &__label {
         font-weight: 200;
         color: $color-primary;
+        margin-right: .7rem;
+        text-align: center;
+    }
+
+    &__buttonLabel {
+        font-size: 1.1rem;
+        font-weight: bold;
+
+        @media only screen and (min-width: $bp-small) {
+            font-weight: normal;
+            font-size: 1.5rem;
+        }
     }
 }

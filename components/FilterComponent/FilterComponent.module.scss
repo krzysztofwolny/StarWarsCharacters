@@ -2,6 +2,7 @@
 
 .filter {
     padding: 2rem;
+    border-bottom: 1px solid $color-primary;
 
     &__form {
         display: flex;
@@ -15,10 +16,19 @@
         }
 
         &_input {
+            width: 90%;
             height: 2.3rem;
             background-color: transparent;
             border: none;
             border-bottom: 1px solid $color-primary;
+
+            @media only screen and (min-width: $bp-small) {
+                width: 50%;
+            }
+
+            @media only screen and (min-width: $bp-medium) {
+                width: 20%;
+            }
 
             &:focus {
                 outline: none;

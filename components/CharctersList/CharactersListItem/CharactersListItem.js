@@ -3,7 +3,8 @@ import styles from './CharactersListItem.module.scss';
 import Router from 'next/router';
 import { addToFavourites, checkFavourites } from '../../../functions/storeFunctions';
 import ShowSpeciesList from './ShowSppeciesList/ShowSpeciesList';
-
+import starfull from '../../../assets/svg/star-full.svg';
+import starempty from '../../../assets/svg/star-empty.svg';
 
 const CharactersListItem = ({ itemData, currentPage, change }) => {
     const [isFavourite, setIsFavourite] = useState(false);
@@ -29,18 +30,20 @@ const CharactersListItem = ({ itemData, currentPage, change }) => {
         });
     };
 
+    //decide which star logo should be used
+    const favouriteStarLogo = isFavourite ? starfull : starempty;
+
     return(
-        <li key={itemData.on} className={styles.charactersListItem}>
-            <p>{itemData.on}</p>
-            <p onClick={() => goToDetailedView()}>Name: {itemData.name}</p>
-            <p>Heigth: {itemData.height}</p>
-            <p>Eye color: {itemData.eye_color}</p>
-            <div className={styles.charactersListItem__species}>
-                <p>Species:</p>
+        <li key={itemData.on} className={`${styles.charactersListItem} ${styles.charactersListItem__cells}`}>
+            <p className={`${styles.charactersListItem__cel} ${styles.charactersListItem__cel_num}`}>{itemData.on}</p>
+            <p className={`${styles.charactersListItem__cel} ${styles.charactersListItem__cel_name}`} onClick={() => goToDetailedView()}>{itemData.name}</p>
+            <p className={`${styles.charactersListItem__cel} ${styles.charactersListItem__cel_height}`}>{itemData.height}</p>
+            <p className={`${styles.charactersListItem__cel} ${styles.charactersListItem__cel_eyecolor}`}>{itemData.eye_color}</p>
+            <div className={`${styles.charactersListItem__cel} ${styles.charactersListItem__cel_species}`}>
                 <ShowSpeciesList dataList={itemData.species} />
             </div>
-            <div onClick={() => addAndCheck(itemData.name, itemData.height, itemData.eye_color)}>
-                {isFavourite ? 'isFav!' : 'notFav'}
+            <div className={`${styles.charactersListItem__cel} ${styles.charactersListItem__cel_isFavourite}`} onClick={() => addAndCheck(itemData.name, itemData.height, itemData.eye_color)}>
+                    <img src={favouriteStarLogo} className={styles.charactersListItem__fav} alt='star svg'/>
             </div>
         </li>
     );

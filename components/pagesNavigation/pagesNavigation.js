@@ -5,9 +5,9 @@ import Button from '../UIElements/Button/Button';
 const pagesNavigation = ({ currentPage, pagesCount, previousPage, nextPage }) => {
     return(
         <div className={styles.pagesNav}>
-            <Button clickAction={() => previousPage()}>Previous Page</Button>
+            <Button clickAction={() => previousPage()}>Previous</Button>
             <p className={styles.pagesNav__numbers}>{currentPage} / {pagesCount}</p>
-            <Button clickAction={() => nextPage()}>Next Page</Button>
+            <Button clickAction={() => nextPage()}>Next</Button>
         </div>
     );
 };
