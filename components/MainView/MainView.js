@@ -48,16 +48,14 @@ const MainView = () => {
     }, [allCharactersRaw, currentPage, itemsPerPage]);
 
     const changeItemsPerPage = (howMany) => {
-        event.preventDefault();
         setItemsPerPage(howMany);
     };
 
     const nextPage = () => {
         if(currentPage === Math.ceil(itemsCount / itemsPerPage)) {
-            setCurrentPage(1);
-        } else {
-            setCurrentPage(currentPage + 1);
+           return setCurrentPage(1);
         }
+        return setCurrentPage(currentPage + 1);
     };
 
     const previousPage = () => {

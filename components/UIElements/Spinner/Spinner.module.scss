@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/animations.scss';
+
+.spinner {
+    width: 6rem;
+    height: 6rem;
+    margin: 3rem;
+    border-radius: 50%;
+    background-color: $color-primary;
+    position: relative;
+
+    &__inner {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        background-color: $color-white-glass;
+        position: absolute;
+        right: 50%;
+        bottom: 50%;
+        transform: translate(50%, 50%);
+    }
+
+    &__rotatingElm {
+        width: 6.5rem;
+        height: 1.5rem;
+        background-color: $color-white-glass;
+        position: absolute;
+        right: -14%;
+        bottom: 37%;
+        animation: spinner 1s infinite ease-in-out;
+    }
+}

@@ -11,11 +11,11 @@ export const paginationFunction = ( inputFromState,
     const start = (page) => {
        if(page === 1 || page > numberOfAllPages) {
         return 0
-       } else if (page > 1 && page <= numberOfAllPages) {
+       };
+       if (page > 1 && page <= numberOfAllPages) {
         return (acctualViewedPage * howManyItemsPerPage) - howManyItemsPerPage
-       } else {
-           return 0
-       }
+       };
+        return 0
     }; 
                            
     const toView = inputFromState.splice(start(acctualViewedPage), howManyItemsPerPage);
@@ -46,16 +46,18 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
             }
         });
         return filteredData
+    };
     //search between given hight range
-    } else if (searchType === 'height') {
+    if (searchType === 'height') {
         charactersInput.forEach( el => {
             if(parseInt(el.height) >= onParam1 && parseInt(el.height) <= onParam2 ) {
                 filteredData.push(el);
             }
         });
         return filteredData
+    };
     //search by name - fultext search
-    } else if (searchType === 'name') {
+    if (searchType === 'name') {
         //prepare array from name and given search strings
         charactersInput.forEach( el => {
             //check if the given search hits directly
@@ -74,24 +76,24 @@ export const filterFunction = (charactersInput, onParam1, onParam2, searchType) 
             });
         }
         return filteredData
+    };
     //search by the eye color
-    } else if (searchType === 'eyecolor') {
+    if (searchType === 'eyecolor') {
         charactersInput.forEach( el => {
             if(el.eye_color.toLowerCase() === onParam1.toLowerCase()) {
                 filteredData.push(el);
             }
         });
         return filteredData 
-        //show favourites
-    } else if (searchType === 'favourites') {
+    };
+    //show favourites
+    if (searchType === 'favourites') {
         charactersInput.forEach( el => {
             if(checkFavourites(el.name, el.height, el.eye_color)) {
                 filteredData.push(el);
             }
         });
         return filteredData
-    } else {
-        return charactersInput
     }
-    
+    return charactersInput    
 };

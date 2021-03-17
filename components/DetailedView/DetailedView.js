@@ -67,7 +67,7 @@ const DetailedView = ({ itemData }) => {
 
     const displayDataFromArray = (input) => {
         return input.map( el => {
-            return <li className={styles.detailedView__data_list}>{el}</li>
+            return <li key={el} className={styles.detailedView__data_list}>{el}</li>
         });
     };
     //change styles after fetched

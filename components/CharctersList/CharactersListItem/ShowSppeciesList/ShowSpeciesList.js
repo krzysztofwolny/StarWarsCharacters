@@ -13,7 +13,7 @@ const ShowSpeciesList = ({dataList}) => {
 
     const printSpeciesList = () => {
         return dataList.map( el => {
-            return <p>{el}</p>
+            return <p key={el}>{el}</p>
         });
     };
 

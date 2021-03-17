@@ -55,10 +55,9 @@ const SearchResult = ({ dataSearch }) => {
 
     const nextPage = () => {
         if(currentPage === pagesCount) {
-            setCurrentPage(1);
-        } else {
-            setCurrentPage(currentPage + 1);
+           return setCurrentPage(1);
         }
+        return setCurrentPage(currentPage + 1);
     };
 
     const previousPage = () => {

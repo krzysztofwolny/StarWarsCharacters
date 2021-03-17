@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { get } from 'lodash';
 
 //takes array of urls and returns arry of fetched names
 export const insertSpeciesNames = (arrayWithURLs) => {
@@ -12,9 +11,9 @@ export const insertSpeciesNames = (arrayWithURLs) => {
             })
             .catch((e) => console.log(e));
         });
-    } else {
-        outputArray.push("unknown")
-    }
+        return outputArray;
+    };
+    outputArray.push("unknown");
     return outputArray;
 };
 
@@ -26,9 +25,8 @@ export const checkFavourites = (name, height, eyeColor) => {
         const getFavourites = JSON.parse(localStorageFavourites);
         const seekFor = `${name.replace(/\s/g, '')}${height}${eyeColor}`;
         return getFavourites.includes(seekFor);
-    } else {
-        return false
-    }
+    };
+    return false;
 }
 
 //takes name, height and eye color and store it in to local storage on favourites list

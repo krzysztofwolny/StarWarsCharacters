@@ -37,15 +37,17 @@ const FilterComponent = ({ filterParameters }) => {
 
     const sendDataToFilter = (filterType, event) => {
         event.preventDefault();
-        if(filterType === 'ordinaryNumber') {
-            filterParameters(from, to, filterType);
-        } else if (filterType === 'height') {
-            filterParameters(from, to, filterType);
-        } else if (filterType === 'name') {
-            filterParameters(name, null, filterType);
-        } else if (filterType === 'eyecolor') {
-            filterParameters(eyeColor, null, filterType);
-        }
+        switch(filterType) {
+            case 'ordinaryNumber':  filterParameters(from, to, filterType);
+                                    break
+            case 'height':  filterParameters(from, to, filterType);
+                            break
+            case 'name':  filterParameters(name, null, filterType);
+                          break
+            case 'eyecolor': filterParameters(eyeColor, null, filterType);
+                             break
+            default: return filterType;
+        };
     };
 
     const chooseSearchType = (event) => {
@@ -56,59 +58,62 @@ const FilterComponent = ({ filterParameters }) => {
     const showInput = () => {
         if(searchType === "ordinaryNumber") {
             return(
-                <React.Fragment>
-                    <label className={styles.filter__form_label} for="ON">from</label>
+                <>
+                    <label className={styles.filter__form_label} htmlFor="ON">from</label>
                     <input className={styles.filter__form_input} type="number" 
                             name="onFrom" 
                             value={from}
                             placeholder="from number"
                             onChange={(event) => onChangeHandler(event)}/>
-                    <label className={styles.filter__form_label} for="ON">To</label>
+                    <label className={styles.filter__form_label} htmlFor="ON">To</label>
                     <input className={styles.filter__form_input} type="number" 
                             name="onTo" 
                             value={to}
                             placeholder="to number"
                             onChange={(event) => onChangeHandler(event)}/>
-                </React.Fragment>
+                </>
             );
-        } else if (searchType === "height") {
+        };
+        if (searchType === "height") {
             return(
-                <React.Fragment>
-                    <label className={styles.filter__form_label} for="height">from</label>
+                <>
+                    <label className={styles.filter__form_label} htmlFor="height">from</label>
                     <input className={styles.filter__form_input} type="number" 
                             name="fromHeight" 
                             value={from}
                             placeholder="from height"
                             onChange={(event) => onChangeHandler(event)}/>
-                    <label className={styles.filter__form_label}  for="ON">To</label>
+                    <label className={styles.filter__form_label} htmlFor="ON">To</label>
                     <input className={styles.filter__form_input} type="number" 
                             name="toHeight" 
                             value={to}
                             placeholder="to height"
                             onChange={(event) => onChangeHandler(event)}/>
-                </React.Fragment>
+                </>
             );
-        } else if (searchType === "name") {
+        };
+        if (searchType === "name") {
             return(
-                <React.Fragment>
-                <label className={styles.filter__form_label} for="name">Name</label>
+                <>
+                <label className={styles.filter__form_label} htmlFor="name">Name</label>
                 <input className={styles.filter__form_input} type="text" 
                         name="name" 
                         value={name}
                         placeholder="enter name"
                         onChange={(event) => onChangeHandler(event)}/>
-                </React.Fragment>
+                </>
             );
-        } else if (searchType === "eyecolor") {
+        };
+        if (searchType === "eyecolor") {
             return(
-                <React.Fragment>
-                <label className={styles.filter__form_label} for="name">Eye color</label>
+                <>
+                <label className={styles.filter__form_label} htmlFor="name">Eye color</label>
                 <input className={styles.filter__form_input} type="text" 
                         name="eyecolor" 
                         value={eyeColor}
                         placeholder="enter eye color"
                         onChange={(event) => onChangeHandler(event)}/>
-                </React.Fragment>
+                </>
             );
         }
     };
