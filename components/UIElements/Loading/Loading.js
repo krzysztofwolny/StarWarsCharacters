@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './Spinner.module.scss';
+import styles from './Loading.module.scss';
 
-const Spinner = () => {
+const Loading = () => {
     return(
         <div className={styles.spinner}>
             <div className={styles.spinner__inner}>
@@ -11,4 +11,4 @@ const Spinner = () => {
     );
 }
 
-export default Spinner;
+export default Loading;

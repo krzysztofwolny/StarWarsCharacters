@@ -83,7 +83,7 @@ const MainView = () => {
             <Header />
             <FilterComponent filterParameters={(data1, data2, type) => filterHandler(data1, data2, type)} />
             <ItemsPerPage itemsPerPage={itemsPerPage} changeItemsPerPage={(howMany) => changeItemsPerPage(howMany)}/>
-            <CharactersList characters={charactersToDisplay} currentPage={currentPage} />
+            <CharactersList characters={charactersToDisplay} currentPage={currentPage} searchMisMatch={false} />
             <PagesNavigation currentPage={currentPage} 
                              pagesCount={Math.ceil(itemsCount / itemsPerPage)}
                              previousPage={() => previousPage()}

@@ -3,12 +3,12 @@ import styles from './CharactersList.module.scss';
 
 import CharactersListItem from './CharactersListItem/CharactersListItem';
 import CharactersListHeader from './CharactersListHeader/CharactersListHeader';
-import Spinner from '../UIElements/Spinner/Spinner';
+import Loading from '../UIElements/Loading/Loading';
 
-const CharactersList = ({ characters, currentPage }) => {
+const CharactersList = ({ characters, currentPage, searchMisMatch }) => {
     const [curPage, setCurPage] = useState(currentPage);
     const [change, setChange] = useState(false);
-    const [showSpinner, setShowSpinner] = useState(true);
+    const [showSpinner, setShowSpinner] = useState(false);
     useEffect(() => {
         setCurPage(currentPage);
         //force refresh of CharactersListItems
@@ -17,13 +17,14 @@ const CharactersList = ({ characters, currentPage }) => {
 
     //show spinner if characters are not loaded
     useEffect(() => {
-        if(characters.length !== 0) {
+        if(characters.length !== 0 && searchMisMatch === false) {
             setShowSpinner(false);
-        }
-        setShowSpinner(true);
-    }, [characters.length]);
-
-    console.log(characters)
+        } else if (characters.length === 0 && searchMisMatch === false) {
+            setShowSpinner(true);
+        } else if (characters.length === 0 && searchMisMatch === true) {
+            setShowSpinner(false);
+        } 
+    }, [characters.length, searchMisMatch]);
     //printContent function takes all  characters and checks 
     //if there are species in each of them. 
     //If there are, it fetches their names.
@@ -36,7 +37,8 @@ const CharactersList = ({ characters, currentPage }) => {
     return(
         <ul className={styles.charactersList}>
             <CharactersListHeader />
-            {showSpinner ? <Spinner/> : null}
+            {showSpinner ? <Loading/> : null}
+            {searchMisMatch ? <p>No search results. Try to find something else.</p> : null}
             {printContent()}
         </ul>
     );

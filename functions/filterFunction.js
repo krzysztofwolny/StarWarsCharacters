@@ -35,6 +35,15 @@ export const addOrdinalNumber = (inputCharacters) => {
     }
     return inputCharactersCopy
 };
+
+//check if nothing was found
+export const nothingWasFound = (filterFunctionResult) => {
+    if(filterFunctionResult.length === 0) {
+        return true
+    };
+    return false
+};
+
 //takes all characters and returns characters array according to given search parameters
 export const filterFunction = (charactersInput, onParam1, onParam2, searchType) => {
     //this part hapens when the search type is for ordinary numbers

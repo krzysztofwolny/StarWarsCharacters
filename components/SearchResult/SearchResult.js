@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Searchresult.module.scss';
 
-import { addOrdinalNumber, filterFunction, paginationFunction } from '../../functions/filterFunction';
+import { addOrdinalNumber, filterFunction, paginationFunction, nothingWasFound } from '../../functions/filterFunction';
 
 import CharactersList from '../CharctersList/CharactersList';
 import FilterComponent from '../FilterComponent/FilterComponent';
@@ -21,6 +21,7 @@ const SearchResult = ({ dataSearch }) => {
     const [filterparam1, setFilterParam1] = useState(false);
     const [filterparam2, setFilterParam2] = useState(false);
     const [searchType, setSearchType] = useState(false);
+    const [nothingFound, setNothingFound] = useState(false)
 
     //display data on first render of search result view
     useEffect(() => {
@@ -33,6 +34,11 @@ const SearchResult = ({ dataSearch }) => {
                                                             dataSearch.param2, 
                                                             dataSearch.filterType),
                                                 itemsPerPage, currentPage, itemsCount));
+        //check if search match anything
+        setNothingFound(nothingWasFound(filterFunction( allCharacters, 
+                                        dataSearch.param1, 
+                                        dataSearch.param2, 
+                                        dataSearch.filterType)));
     }, [allCharactersRaw, currentPage, itemsPerPage]);
 
     //make new search
@@ -46,6 +52,10 @@ const SearchResult = ({ dataSearch }) => {
                             filterparam2, 
                             searchType),
                 itemsPerPage, currentPage, itemsCount));
+            setNothingFound(nothingWasFound(filterFunction( allCharacters, 
+                                                            filterparam1, 
+                                                            filterparam2, 
+                                                            searchType)));
         }
     }, [filterparam1, currentPage, itemsPerPage]);
 
@@ -79,7 +89,7 @@ const SearchResult = ({ dataSearch }) => {
             <Header />
             <FilterComponent filterParameters={(data1, data2, type) => filterHandler(data1, data2, type)} />
             <ItemsPerPage itemsPerPage={itemsPerPage} changeItemsPerPage={(howMany) => changeItemsPerPage(howMany)}/>
-            <CharactersList characters={charactersToDisplay} currentPage={currentPage} />
+            <CharactersList characters={charactersToDisplay} currentPage={currentPage} searchMisMatch={nothingFound} />
             <PagesNavigation currentPage={currentPage} 
                              pagesCount={pagesCount}
                              previousPage={() => previousPage()}
