@@ -9,6 +9,7 @@ const CharactersList = ({ characters, currentPage, searchMisMatch }) => {
     const [curPage, setCurPage] = useState(currentPage);
     const [change, setChange] = useState(false);
     const [showSpinner, setShowSpinner] = useState(false);
+
     useEffect(() => {
         setCurPage(currentPage);
         //force refresh of CharactersListItems

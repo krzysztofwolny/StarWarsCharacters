@@ -34,11 +34,6 @@ const SearchResult = ({ dataSearch }) => {
                                                             dataSearch.param2, 
                                                             dataSearch.filterType),
                                                 itemsPerPage, currentPage, itemsCount));
-        //check if search match anything
-        setNothingFound(nothingWasFound(filterFunction( allCharacters, 
-                                        dataSearch.param1, 
-                                        dataSearch.param2, 
-                                        dataSearch.filterType)));
     }, [allCharactersRaw, currentPage, itemsPerPage]);
 
     //make new search

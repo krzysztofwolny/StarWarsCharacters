@@ -10,7 +10,7 @@ import Header from '../Header/Header';
 import Button from '../UIElements/Button/Button';
 
 const DetailedView = ({ itemData }) => {
-    const [isFavourite, setIsFavourite] = useState(checkFavourites(itemData.name, itemData.height, itemData.eye_color));
+    const [isFavourite, setIsFavourite] = useState(false);
     const [films, setFilms] = useState([]);
     const [homeworld, setHomeworld] = useState([])
     const [isFetched, setIsFetched] = useState(false);
@@ -21,6 +21,11 @@ const DetailedView = ({ itemData }) => {
     };
 
     const fetchItemsFromArray = (input) => {
+        if(typeof input === 'undefined') {
+            if(confirm("Something went wrong! Going back to homepage! Quick! Click 'ok' and then refresh the page.")) {
+                Router.push('/');
+            }
+        };
         let output = [];
         if(typeof input === 'string') {
             let inputToArray = [];
@@ -55,7 +60,8 @@ const DetailedView = ({ itemData }) => {
     //fetch films and homeworld name
     useEffect(() => {
         setFilms(fetchItemsFromArray(itemData.films));
-        setHomeworld(fetchHomeworld(itemData.homeworld))
+        setHomeworld(fetchHomeworld(itemData.homeworld));
+        setIsFavourite(checkFavourites(itemData.name, itemData.height, itemData.eye_color));
     }, [])
 
     //rerender after fetch

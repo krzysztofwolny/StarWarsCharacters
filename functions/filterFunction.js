@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { checkFavourites } from './storeFunctions';
+import Router from 'next/router';
 
 export const paginationFunction = ( inputFromState, 
                                 howManyItemsPerPage,
@@ -17,9 +18,13 @@ export const paginationFunction = ( inputFromState,
        };
         return 0
     }; 
-                           
-    const toView = inputFromState.splice(start(acctualViewedPage), howManyItemsPerPage);
-    return toView;
+    //error handling after serch result page refresh
+    if(inputFromState) {
+        return inputFromState.splice(start(acctualViewedPage), howManyItemsPerPage);
+    } 
+    if(confirm("Something went wrong! Going back to homepage! Quick! Click 'ok' and then refresh the page.")) {
+        Router.push('/');
+    }
 };
 
 export const addOrdinalNumber = (inputCharacters) => {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Router } from 'next/router';
 
 //takes array of urls and returns arry of fetched names
 export const insertSpeciesNames = (arrayWithURLs) => {
