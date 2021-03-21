@@ -9,9 +9,21 @@ html {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 body {
-  background: linear-gradient(-45deg, $color-black, $color-primary, $color-grey, $color-black);
-  background-size: 600% 700%;
-  animation: gradient 45s ease infinite;
+  background: url('../assets/png/background-phone.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @media only screen and (min-width: $bp-very-small) {
+    background: url('../assets/png/background-tablet.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  @media only screen and (min-width: $bp-medium) {
+    background: url('../assets/png/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 }
 *,
 *:before,
@@ -30,7 +42,6 @@ ol,
 ul {
   margin: 0;
   padding: 0;
-  font-weight: normal;
 }
 h1,
 h2,

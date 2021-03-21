@@ -1,0 +1,14 @@
+@import './variables.scss';
+
+@mixin gradient-silver {
+    background-image: linear-gradient(45deg, $color-white-glass, $color-black-glass);
+}
+
+@mixin gradient-gold {
+    background-image: linear-gradient(45deg, $color-primary, $color-black-glass);
+}
+
+@mixin death-star-background {
+    background: linear-gradient(45deg, $color-white-glass, $color-black-glass), url('../assets/png/death-star.png');
+    background-repeat: no-repeat;
+}

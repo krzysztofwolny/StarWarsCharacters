@@ -1,16 +1,17 @@
 @import '../../styles/variables.scss';
 @import '../MainView/MainView.module.scss';
+@import '../../styles/mixins.scss';
 
 .detailedView {
 
     &__favouriteSection {
+        @include death-star-background;
         color: $color-primary;
         font-size: 2rem;
         font-weight: bold;
         text-align: center;
         width: 100%;
         padding: .8rem;
-        border: 1px solid $color-primary;
         border-radius: 1rem;
 
         display: flex;
@@ -37,10 +38,10 @@
         }
 
         &_item {
-            border: 1px solid $color-primary;
+            @include gradient-gold;
             margin: 1rem;
             padding: .8rem;
-            border-radius: 1rem;
+            border-bottom-left-radius: 2rem;
             width: 100%;
 
             display: flex;
@@ -72,8 +73,9 @@
         align-items: center;
         color: rgb(10, 10, 10);
 
-        border: 1px solid $color-primary;
-        border-radius: 1rem;
+        @include gradient-silver;
+        border-bottom-left-radius: 2rem;
+        margin-top: 2rem;
         padding: .8rem;
         width: 100%;
         margin: 1rem;

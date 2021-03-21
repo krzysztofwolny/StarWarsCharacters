@@ -3,6 +3,7 @@
 .charactersListItem {
     width: 100%;
     padding: 1.5rem;
+    font-weight: bold;
 
     display: grid;
     grid-template-columns: repeat(6, 16.66%);
@@ -10,10 +11,15 @@
 
     &__cells {
         width: 100%;
-        background-color: transparent;
+        background-color: $color-primary-hover;
         transition: all .2s;
-        color: $color-primary;
+        color: $color-black;
         text-align: center;
+        border-bottom-left-radius: 3rem;
+
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+        }
 
         @media only screen and (min-width: $bp-very-small) {
             font-size: 1.1rem;
@@ -23,8 +29,13 @@
             font-size: 1.3rem;
         }
 
+        @media only screen and (min-width: $bp-desktop) {
+            font-size: 1.6rem;
+        }
+
         &:hover {
-            background-color: $color-light-grey;
+            background-color: $color-primary;
+            transform: translateX(2rem) scale(1.05);
         }
     }
 
@@ -33,7 +44,10 @@
         justify-content: center;
         align-items: center;
         padding: .5rem;
-        
+
+        &_name {
+            cursor: pointer;
+        }       
     }
 
     &__fav {

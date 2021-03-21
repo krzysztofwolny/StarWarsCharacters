@@ -1,8 +1,8 @@
 .showSmallList {
-    color: black;
+    color: rgb(29, 29, 29);
     display: flex;
 
     &__fetched {
-        color: rgb(29, 29, 29);
+        color: black;
     }
 }
