@@ -24,9 +24,7 @@ const CharactersListItem = ({ itemData, currentPage, change }) => {
     const goToDetailedView = () => {
         Router.push({
             pathname: '/detailed_view',
-            query: { 
-                ...itemData
-            }
+            query: { on: itemData.on }
         });
     };
 

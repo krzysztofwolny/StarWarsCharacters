@@ -1,0 +1,7 @@
+@import '../../MainView/MainView.module.scss';
+@import '../../../styles/variables.scss';
+
+.label {
+    color: $color-primary;
+    font-size: 2rem;
+}

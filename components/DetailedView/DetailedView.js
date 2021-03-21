@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
+import { useSelector } from 'react-redux';
 import styles from './DetailedView.module.scss';
 import { checkFavourites, addToFavourites } from '../../functions/storeFunctions';
 import axios from 'axios';
@@ -9,11 +10,13 @@ import starfull from '../../assets/svg/star-full.svg';
 import Header from '../Header/Header';
 import Button from '../UIElements/Button/Button';
 
-const DetailedView = ({ itemData }) => {
+const DetailedView = ({ ordinaryNumber }) => {
+    const characters = useSelector(state => state.results);
     const [isFavourite, setIsFavourite] = useState(false);
     const [films, setFilms] = useState([]);
     const [homeworld, setHomeworld] = useState([])
     const [isFetched, setIsFetched] = useState(false);
+    const [itemData] = useState(characters[ordinaryNumber.on - 1]);
 
     const addThisCharacterToFavourites = () => {
         addToFavourites(itemData.name, itemData.height, itemData.eye_color);
