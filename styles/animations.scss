@@ -18,3 +18,25 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes componentEnter {
+	0% {
+		transform: translateX(120%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+@keyframes componentEnter2 {
+	0% {
+		transform: translateX(-120%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}

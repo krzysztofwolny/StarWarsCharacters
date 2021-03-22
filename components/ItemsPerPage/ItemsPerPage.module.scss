@@ -9,10 +9,16 @@
     border-bottom: 1px solid $color-primary;
 
     &__label {
-        font-weight: 200;
+        font-weight: normal;
+        font-size: 1.5rem;
         color: $color-primary;
         margin-right: .7rem;
         text-align: center;
+
+        @media only screen and (min-width: $bp-small) {
+            font-weight: bold;
+            font-size: 2rem;
+        }
     }
 
     &__buttonLabel {

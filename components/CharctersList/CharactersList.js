@@ -39,7 +39,7 @@ const CharactersList = ({ characters, currentPage, searchMisMatch }) => {
         <ul className={styles.charactersList}>
             <CharactersListHeader />
             {showSpinner ? <Loading/> : null}
-            {searchMisMatch ? <p>No search results. Try to find something else.</p> : null}
+            {searchMisMatch ? <p className={styles.charactersList__searchFailure}>No search results. Try to find something else.</p> : null}
             {printContent()}
         </ul>
     );

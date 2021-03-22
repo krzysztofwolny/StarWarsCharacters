@@ -35,7 +35,12 @@
 
         &:hover {
             background-color: $color-primary;
-            transform: translateX(2rem) scale(1.05);
+            box-shadow: 10px 10px 10px 2px $color-black;
+            transform: translate(2rem) scale(1.04);
+
+            & .charactersListItem__fav {
+                transform: rotate(360deg) scale(1.4);
+            }
         }
     }
 
@@ -51,12 +56,8 @@
     }
 
     &__fav {
-        width: 2rem;
-        height: 2rem;
+        width: 3rem;
+        height: 3rem;
         transition: all .2s;
-
-        &:hover {
-            fill: $color-primary;
-        }
     }
 }

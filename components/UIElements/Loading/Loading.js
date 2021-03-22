@@ -13,15 +13,17 @@ const Loading = () => {
 
     const waiting = () => {
         return(
-            <div className={styles.spinner}>
-                <div className={styles.spinner__inner}>
-                    <div className={styles.spinner__rotatingElm}></div>
+            <div className={styles.loading__wrapper}>
+                <div className={styles.loading}>
+                    <div className={styles.loading__inner}>
+                        <div className={styles.loading__rotatingElm}></div>
+                    </div>
                 </div>
             </div>
         );
     }
 
-    const displayInfo = waitToLong ? <p>No search results. Try to find something else.</p> : waiting();
+    const displayInfo = waitToLong ? <p className={styles.charactersList__searchFailure}>No search results. Try to find something else.</p> : waiting();
 
     return(
         <>
