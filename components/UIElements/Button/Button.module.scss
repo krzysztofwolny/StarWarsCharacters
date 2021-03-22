@@ -13,8 +13,13 @@
     cursor: pointer;
 
     &:hover {
-        color: white;
+        color: $color-black;
         background-color: $color-primary;
+
+        @media (hover: none) {
+                color: $color-primary;
+                background-color: $color-black;
+        }
     }
 
     &:active {
@@ -22,9 +27,7 @@
         box-shadow: 1px 1px 15px 2px $color-primary-hover;
     }
 
-    &:visited,
     &:focus {
         outline: none;
-        border: none;
     }
 }
